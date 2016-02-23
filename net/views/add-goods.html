@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加商品</title>
+
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <meta name="author" content="Cononico" />
+    <meta name="apple-mobile-app-capable" content="yes">
+    <meta name="apple-mobile-app-status-bar-style" content="black">
+
+    <meta name="description" itemprop="description" content="node.js mongodb 的订货管理系统" />
+    <meta name="keywords" itemprop="keywords" content="node,mongodb,订货管理系统" />
+
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script src="/javascripts/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+<header class="center_header">
+    <h1><%= user %></h1>
+    <a href="/logout">登出</a>
+</header>
+<div class="add_main">
+    <form class="add_goods_form">
+        <h1>添加商品</h1>
+        <label>商品名称：</label><input class="goodsname" type="text">
+        <label>简介：</label><input class="goodsdes" type="text">
+        <lable>库存：</lable><input class="goodsstock" type="number" min="1" max="1000">
+        <input type="submit" value="添加">
+        <input type="reset" value="取消">
+    </form>
+
+
+    <form class="add_stack_form">
+        <div class="button_div">
+            <input type="submit" class="ok" value="确定">
+            <a class="back" href="/admin-center">返回</a>
+        </div>
+    <table class="add_goods_table" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <th>添加库存</th>
+        </tr>
+        <tr>
+            <th>商品</th>
+            <th>简介</th>
+            <th>添加</th>
+        </tr>
+        <% for(var i = 0; i < goods.length; i++){ %>
+            <tr>
+                <td>
+                    <p><%= goods[i].goodsnum %>.  <%= goods[i].goodsname %></p>
+                </td>
+                <td>
+                    <p><%= goods[i].des %></p>
+                </td>
+                <td>
+                    <h1>库存</h1><h3>*<%= goods[i].goodsstock %></h3>
+                    <div class="input_div">
+                        <input class="goods_input" type="number" data-yu="<%= goods[i].goodsstock %>" data-id="<%= goods[i].goodsnum %>" value="0" min="0" max="10000">
+                    </div>
+                </td>
+            </tr>
+        <% } %>
+    </table>
+    </form>
+</div>
+</body>
+<script type="text/javascript" src="/javascripts/html.js"></script>
+</html>

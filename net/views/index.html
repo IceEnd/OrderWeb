@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-cn" class="index_html">
+<head>
+    <title>订货管理系统</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <meta name="author" content="Cononico" />
+    <meta name="apple-mobile-app-capable" content="yes">
+    <meta name="apple-mobile-app-status-bar-style" content="black">
+
+    <meta name="description" itemprop="description" content="node.js mongodb 的订货管理系统" />
+    <meta name="keywords" itemprop="keywords" content="node,mongodb,订货管理系统" />
+
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script src="/javascripts/jquery-1.11.3.min.js"></script>
+</head>
+<body class="index">
+    <h1 class="index_title"><%= title %></h1>
+    <div class="index_main">
+        <div class="index_action">
+            <div class="index_login">
+                <form class="login_form" action="center" method="post">
+                    <p>
+                    <label>用户名：</label>
+                    <input class="login_form_name" name="name" type="text">
+                    </p>
+                    <p>
+                    <label>密　码：</label>
+                    <input class="login_form_passwd" name="password" type="password">
+                    </p>
+                    <p>
+                    <select name="type">
+                        <option value="2">用户</option>
+                        <option value="1">管理员</option>
+                    </select>
+                    </p>
+                    <p>
+                        <input type="submit"  value="Login In">
+                    </p>
+                </form>
+            </div>
+            <div class="index_reg">
+                <form class="register_form" action="register" method="post">
+                    <p>
+                        <label>用户名：</label>
+                        <input class="register_name" name="name" type="text">
+                    </p>
+                    <p>
+                        <label>密　码：</label>
+                        <input class="register_pwd" name="password" type="password">
+                    </p>
+                    <p>
+                        <label>密　码：</label>
+                        <input class="register_pwd2" name="password_co" type="password">
+                    </p>
+                    <p>
+                        <select name="type">
+                            <option value="2">用户</option>
+                            <option value="1">管理员</option>
+                        </select>
+                    </p>
+                    <p>
+                        <input type="submit" value="Register">
+                    </p>
+                </form>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="index_button">
+            <a title="登录" class="login_a">登录</a>
+            <a title="注册" class="res_a">注册</a>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="/javascripts/html.js"></script>
+</html>

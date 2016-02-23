@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加订单</title>
+
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <meta name="author" content="Cononico" />
+    <meta name="apple-mobile-app-capable" content="yes">
+    <meta name="apple-mobile-app-status-bar-style" content="black">
+
+    <meta name="description" itemprop="description" content="node.js mongodb 的订货管理系统" />
+    <meta name="keywords" itemprop="keywords" content="node,mongodb,订货管理系统" />
+
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script src="/javascripts/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+<header class="center_header">
+    <h1><%= user %></h1>
+    <a href="/logout">登出</a>
+</header>
+<div class="add_main">
+    <form class="add_order_form" data-name="<%= user %>" data-type="<%= type %>" >
+    <div class="button_div">
+        <input type="submit" class="ok" value="确定">
+        <% if (type == "1"){ %>
+        <a class="back" href="/admin-center">返回</a>
+        <% }else{ %>
+        <a class="back" href="/center">返回</a>
+        <% } %>
+    </div>
+
+    <table class="add_order_table" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <% if( type == "1" ) { %>{
+
+           <th><lable>用户：</lable><input class="order_user" type="text"></th>
+            <% } %>
+           <th><lable>手机：</lable><input class="order_tel" type="tel"></th>
+           <th><lable>地址：</lable><input class="order_addr" type="text"></th>
+        </tr>
+        <tr>
+            <th>商品</th>
+            <th>简介</th>
+            <th>选购</th>
+        </tr>
+        <% for(var i = 0 ; i < goods.length ; i++){ %>
+        <tr>
+            <td>
+                <p><%= goods[i].goodsnum %>.  <%= goods[i].goodsname %></p>
+            </td>
+            <td>
+                <p><%= goods[i].des %></p>
+            </td>
+            <td>
+                <h1>库存</h1><h3>*<%= goods[i].goodsstock %></h3>
+                <div class="input_div">
+                    <input class="order_input" type="number" data-max="<%= goods[i].goodsstock %>" data-name="<%= goods[i].goodsname %>" data-id="<%= goods[i].goodsnum %>" value="0" min="0" max="<%= goods[i].goodsstock %>">
+                </div>
+            </td>
+        </tr>
+        <% } %>
+    </table>
+    </form>
+</div>
+</body>
+<script type="text/javascript" src="/javascripts/html.js"></script>
+</html>

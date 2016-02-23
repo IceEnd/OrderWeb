@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户中心</title>
+
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <meta name="author" content="Cononico" />
+    <meta name="apple-mobile-app-capable" content="yes">
+    <meta name="apple-mobile-app-status-bar-style" content="black">
+
+    <meta name="description" itemprop="description" content="node.js mongodb 的订货管理系统" />
+    <meta name="keywords" itemprop="keywords" content="node,mongodb,订货管理系统" />
+
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script src="/javascripts/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+<header class="center_header">
+    <h1><%= username %></h1>
+    <a href="/logout">登出</a>
+</header>
+<div class="admin_main">
+    <div class="center_nav">
+        <a class="user_nav_handle admin_nav_on" href="#">全部订单</a>
+        <a class="user_nav_all" href="/add">订货</a>
+    </div>
+    <table class="user_order" border="1">
+        <tr>
+            <th class="num_th">订单编号</th>
+            <th class="user_th">订货人</th>
+            <th class="goods_th">货物</th>
+            <th class="state_th">状态</th>
+        </tr>
+        <% for(var i = orderItems.length-1 ; i >=0 ; i--){ %>
+        <tr>
+            <th>
+                <p>
+                    <%= orderItems[i].ordernum %>
+                </p>
+                <p>
+                    <%= orderItems[i].date %>
+                </p>
+            </th>
+            <th>
+                <p><%= orderItems[i].username %></p>
+                <p><%= orderItems[i].telphone %></p>
+                <p><%= orderItems[i].addr %></p>
+            </th>
+            <th>
+                <% for(var j=0;j < orderItems[i].goods.length;j++){ %>
+                <p class="goods_p"><%= orderItems[i].goods[j] %> * <%= orderItems[i].amount[j] %></p>
+                <% } %>
+            </th>
+            <th>
+                <% if(orderItems[i].state == "1"){ %>
+                    <button class="handle_a" data-ordernum="<%= orderItems[i].ordernum %>" onclick="userOrderCancel(this)">取消订单</button>
+                    <p>未发货</p>
+                <% }else if(orderItems[i].state == "2") { %>
+                    <p><%= orderItems[i].handler %>已发货</p>
+                    <button class="handle_a" data-ordernum="<%= orderItems[i].ordernum %>" onclick="userOrderHandle(this)">确认收货</button>
+                <% }else if(orderItems[i].state == "3"){ %>
+                    <p>客户已取消</p>
+                    <p><%= orderItems[i].candate %></p>
+                <% }else if(orderItems[i].state == "4") { %>
+                    <p>交易完成</p>
+                    <p><%= orderItems[i].comdate %></p>
+                <% }else { %>
+                    <p><%= orderItems[i].canadmin %>已取消</p>
+                    <p><%= orderItems[i].candate %></p>
+                <% } %>
+            </th>
+        </tr>
+        <% } %>
+    </table>
+</div>
+</body>
+<script type="text/javascript" src="/javascripts/handle.js"></script>
+</html>

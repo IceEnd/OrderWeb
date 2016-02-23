@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员中心</title>
+
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <meta name="author" content="Cononico" />
+    <meta name="apple-mobile-app-capable" content="yes">
+    <meta name="apple-mobile-app-status-bar-style" content="black">
+
+    <meta name="description" itemprop="description" content="node.js mongodb 的订货管理系统" />
+    <meta name="keywords" itemprop="keywords" content="node,mongodb,订货管理系统" />
+
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script src="/javascripts/jquery-1.11.3.min.js"></script>
+</head>
+<body>
+<header class="center_header">
+    <h1><%= title %></h1>
+    <a href="/logout">登出</a>
+</header>
+<div class="admin_main">
+<div class="admin_nav">
+    <a class="order_nav_handle admin_nav_on" href="#">待处理订单</a>
+    <a class="order_nav_all">全部订单</a>
+    <a href="/add">添加订单</a>
+    <a href="/admin-center/goods">添加商品</a>
+</div>
+    <div class="admin_bar">
+        <ul class="admin_ul">
+            <!--待处理订单-->
+            <li class="handle_order_li">
+                <table border="1">
+                    <tr>
+                        <th class="num_th">订单编号</th>
+                        <th class="user_th">订货人</th>
+                        <th class="goods_th">货物</th>
+                        <th class="state_th">状态</th>
+                    </tr>
+                    <%
+                    for(var i = handleItems.length-1 ; i >= 0 ; i--){
+                    %>
+                    <tr>
+                        <th>
+                            <p>
+                                <%= handleItems[i].ordernum %>
+                            </p>
+                            <p>
+                                <%= handleItems[i].date %>
+                            </p>
+
+                        </th>
+                        <th>
+                            <p><%= handleItems[i].username %></p>
+                            <p><%= handleItems[i].telphone %></p>
+                            <p><%= handleItems[i].addr %></p>
+                        </th>
+                        <!-- 货物 -->
+                        <th class="goods_th">
+                            <% for(var j=0;j < handleItems[i].goods.length;j++){ %>
+                            <p class="goods_p"><%= handleItems[i].goods[j] %> * <%= handleItems[i].amount[j] %></p>
+                            <% } %>
+                        </th>
+                        <!-- 订单状态 -->
+                        <th>
+                            <button class="handle_a" data-admin="<%= title %>" data-ordernum="<%= handleItems[i].ordernum %>" onclick="adminOrderHandle(this)">处理</button>
+                            <button class="handle_a" data-admin="<%= title %>" data-ordernum="<%= handleItems[i].ordernum %>" onclick="adminOrderCancel(this)">取消</button>
+                        </th>
+                    </tr>
+                    <% } %>
+                </table>
+            </li>
+
+            <!--全部订单 -->
+            <li class="all_order_li">
+                <table border="1">
+                    <tr>
+                        <th class="num_th">订单编号</th>
+                        <th class="user_th">订货人</th>
+                        <th class="goods_th">货物</th>
+                        <th class="state_th">状态</th>
+                    </tr>
+                    <% for(var i = 0; i < allItems.length; i++) { %>
+                    <tr>
+                        <th>
+                            <p><%= allItems[i].ordernum %></p>
+                            <p><%= allItems[i].date %></p>
+                        </th>
+                        <th>
+                            <p><%= allItems[i].username %></p>
+                            <p><%= allItems[i].telphone %></p>
+                            <p><%= allItems[i].addr %></p>
+                        </th>
+                        <th>
+                            <% for(var j=0;j < allItems[i].goods.length;j++){ %>
+                            <p class="goods_p"><%= allItems[i].goods[j] %> * <%= allItems[i].amount[j] %></p>
+                            <% } %>
+                        </th>
+                        <th>
+                            <% if(allItems[i].state == "1"){ %>
+                                <p>未处理</p>
+                            <% }else if(allItems[i].state == "2") { %>
+                                <p><%= allItems[i].handler %>已处理</p>
+                                <p style="color:red">等待客户收货</p>
+                                <p><%= allItems[i].handledate %></p>
+                            <% }else if(allItems[i].state == "3"){ %>
+                                <p>客户已取消</p>
+                                <p><%= allItems[i].candate %></p>
+                            <% }else if(allItems[i].state == "4") { %>
+                                <p>交易完成</p>
+                                <p><%= allItems[i].comdate %></p>
+                            <% }else { %>
+                                <p><%= allItems[i].canadmin %>已取消</p>
+                                <p><%= allItems[i].candate %></p>
+                            <% } %>
+                        </th>
+                    </tr>
+                    <% } %>
+                </table>
+            </li>
+            <div class="clearfix"></div>
+        </ul>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="/javascripts/html.js"></script>
+<script type="text/javascript" src="/javascripts/handle.js"></script>
+</html>
